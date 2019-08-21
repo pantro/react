@@ -1,0 +1,2 @@
+npx create-react-app weather-app //Crea proyecto
+yarn start ó npm start //Levanta servidor de desarrollo
