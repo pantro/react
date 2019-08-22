@@ -1,2 +1,10 @@
 npx create-react-app weather-app //Crea proyecto
 yarn start ó npm start //Levanta servidor de desarrollo
+yarn add [nombre paquete]  // similar a npm install
+yarn add prop-types ó npm install prop-types//Libreria que nos ayuda cuando un lenguaje no es tipado
+
+DATOS IMPORTANTES
+- Destructuring
+- const [x, ...y] = ['a', 'b', 'c', 'd']
+
+
