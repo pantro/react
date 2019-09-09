@@ -1,0 +1,10 @@
+npx create-react-app weather-app //Crea proyecto
+yarn start ó npm start //Levanta servidor de desarrollo
+npm install --save react-router-dom
+yarn add redux
+yarn add react-redux
+yarn add redux-actions
+npm install -g json-server //Se utilliza asi: json-server --watch db.json --port 3001
+yarn add redux-promise
+yarn add reselect
+npm install --save redux-form
