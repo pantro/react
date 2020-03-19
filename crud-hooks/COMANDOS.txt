@@ -1,0 +1,13 @@
+COMANDOS UTILIZADOS
+-------------------
+- npx create-react-app crud-hooks //Crea el proyecto
+- npm install react-hook-form // utilizar formularios
+- npm install uuid //Para generar IDs
+
+Se sigue estas instrucciones:
+- https://bluuweb.github.io/react/crud-hooks/  //Cuidado al eliminar archivos, hacer caso al primer commit
+
+-npm run start //Para ejecutar el programa
+
+Complementar con este link:
+- https://www.taniarascia.com/crud-app-in-react-with-hooks/
