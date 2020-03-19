@@ -8,3 +8,10 @@ npm install -g json-server //Se utilliza asi: json-server --watch db.json --port
 yarn add redux-promise
 yarn add reselect
 npm install --save redux-form
+
+PARA CREAR SERVIDOR NODE
+------------------------
+touch packege.json
+npm init -y
+yarn add express mysql cors
+nodemon index.js

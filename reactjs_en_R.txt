@@ -1,0 +1,83 @@
+PASOS PARA PONER REACTJS EN SHINY SIN PAQUETES
+----------------------------------------------
+1.- Poner el "id" principal en "ui.R"
+  - div(id="like_button_container")
+2.- Agregar las librerias necesarias
+    - tags$head(tags$script(src="https://unpkg.com/react@16/umd/react.development.js"))
+    - tags$head(tags$script(src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"))
+
+3.- Llamar al js con el codigo reactjs: Para esto se tiene que importar el js desde la funcion jquery "ready()" para que al momento de utilizar el codigo de reactjs este cargado todo el html. Para esto me copie una funcion de internet:
+  /*Funcion para importar js*/
+  function importarScript(nombre) {
+    var s = document.createElement("script");
+    s.src = nombre;
+    document.querySelector("head").appendChild(s);
+  }
+  importarScript("code_react.js");
+
+////////////////////* code_react.js *///////////////////////////
+'use strict';
+
+const e = React.createElement;
+
+class LikeButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { liked: false };
+  }
+
+  render() {
+    if (this.state.liked) {
+      return 'You liked this.';
+    }
+
+    return e(
+      'button',
+      { onClick: () => this.setState({ liked: true }) },
+      'Like'
+    );
+  }
+}
+
+const domContainer = document.querySelector('#like_button_container');
+ReactDOM.render(e(LikeButton), domContainer);
+////////////////////////////////////////////////////////////////
+
+SI QUEREMOS QUE FUNCIONE JSX
+----------------------------
+1.- Agregar babel
+  - tags$head(tags$script(src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"))
+2.- Dentro de la carpeta "www/" ejecutar:
+  - npm init -y
+  - npm install babel-cli@6 babel-preset-react-app@3
+3.- Crea una carpeta llamada src y ejecuta este comando en la terminal:
+  - npx babel --watch src --out-dir . --presets react-app/prod
+4.- Dentro de la carpeta "src/" se crea el archivo reactjs con JSX y automaticamente aparecera un archivo con el mismo nombre en la carpeta "www/"
+////////////////////* code_react.js *///////////////////////////
+'use strict';
+
+class LikeButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { liked: false };
+  }
+
+  render() {
+    if (this.state.liked) {
+      return 'You liked this.';
+    }
+
+    return (
+      <button onClick={() => this.setState({ liked: true }) }>
+        Like
+      </button>
+    );
+  }
+}
+
+let domContainer = document.querySelector('#like_button_container');
+ReactDOM.render(<LikeButton />, domContainer);
+////////////////////////////////////////////////////////////////
+NOTA: Esto tal vez no sirva para pasarlo a produccion pero para hacer unas pruebas sencillas de como se verian ciertas cosas si me sirvio.
+
+

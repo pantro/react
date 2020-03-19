@@ -1,5 +1,11 @@
 
-export const apiGet = (url) => () => fetch(url).then(v => v.json());
+export const apiGet = (url) => () => fetch(url).then(v => v.json())
+.then(r => {
+    for (const c of r) {
+        console.log(c);
+    }
+    return r;
+});
 
 export const apiPut = (url, id, obj) => () => 
     fetch(`${url}/${id}`, {

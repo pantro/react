@@ -5,7 +5,12 @@ import { FETCH_CUSTOMERS,
     DELETE_CUSTOMER } from './../constants/index';
 
 export const customers = handleActions({
-    [FETCH_CUSTOMERS]: (state, action) => [ ...action.payload],
+    [FETCH_CUSTOMERS]: (state, action) => //[ ...action.payload],
+    {
+        console.log("Entro");
+        console.log(action);
+        return action.payload;
+    },
     [INSERT_CUSTOMER]: (state, action) => [ ...state, action.payload ],
     [UPDATE_CUSTOMER]: (state, action) => {
         const customerPayload = action.payload;
