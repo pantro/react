@@ -11,3 +11,7 @@ Se sigue estas instrucciones:
 
 Complementar con este link:
 - https://www.taniarascia.com/crud-app-in-react-with-hooks/
+
+Utilizar hook-form (no es de react)
+- npm install react-hook-form
+

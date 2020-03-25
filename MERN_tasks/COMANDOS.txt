@@ -1,0 +1,5 @@
+COMANDOS UTILIZADOS EN ESTE PROYECTOS
+------------------------------------
+- npx create-react-app cliente
+- npm i react-router-dom
+- npm start
