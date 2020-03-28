@@ -4,3 +4,4 @@ COMANDOS UTILIZADOS EN ESTE PROYECTOS
 - npm i react-router-dom
 - npm start
 - npm i -D uuid
+- npm i react-transition-group //Para dar un poco de animacion a las acciones
