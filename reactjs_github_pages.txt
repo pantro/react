@@ -1,0 +1,13 @@
+SUBIR APP REACTJS A GITHUB PAGE
+-------------------------------
+NOTA: No tiene que haber carpeta adicional dentro de la raiz principal
+- En "package.json"
+    * "homepage": "https://myusername.github.io/my-app",
+    En "script"
+    * "predeploy": "npm run build",
+    * "deploy": "gh-pages -b master -d build",
+- git checkout -b gh-pages
+- npm run deploy
+
+Luego realizar un commit en gh-pages para poder utilizarlo como entorno de desarrollo y poner el siguiente codigo al subirlo:
+- git push --set-upstream origin gh-pages
