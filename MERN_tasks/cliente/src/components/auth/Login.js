@@ -1,8 +1,29 @@
-import React, {useState} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 
-const Login = () => {
+import alertaContext from '../../context/alertas/alertaContext';
+import authContext from "../../context/auth/authContext";
+
+const Login = ( props ) => {
+
+    //Extraer los valores del context
+    const alertasContext = useContext(alertaContext);
+    const { alerta, MostrarAlerta } = alertasContext;
+
+    const authsContext = useContext(authContext);
+    const { mensaje, autenticado, IniciarSesion } = authsContext;
     
+    //En caso de que el passwors o usuario no exista
+    useEffect(() => {
+      if (autenticado) {
+        props.history.push('/proyectos');
+      }
+      
+      if (mensaje) {
+        MostrarAlerta(mensaje.msg, mensaje.categoria);
+      }
+    }, [mensaje, autenticado, props.history]);
+
     //State para iniciar sesión
     const [usuario, guardarUsuario] = useState({
         email: '',
@@ -23,51 +44,56 @@ const Login = () => {
       e.preventDefault();
 
       //Validar que no haya campos vacios
+      if (email.trim() === '' || password.trim() === '') {
+        MostrarAlerta('Todos los campos son obligatorios', 'alerta-error');
+      }
 
       //Pasarlo al action
+      IniciarSesion({ email, password });
     }
 
     return (
       <div className='form-usuario'>
-          <div className='contenedor-form sombra-dark'>
-              <h1>Iniciar Sesión</h1>
+        { alerta ? (<div className={`alerta ${alerta.categoria}`}>{alerta.msg}</div>) : null }
+        <div className='contenedor-form sombra-dark'>
+            <h1>Iniciar Sesión</h1>
 
-              <form
-                onSubmit={onSubmit}
-              >
-                  <div className='campo-form'>
-                    <label htmlFor='email'>Email</label>
-                    <input 
-                      type='email'
-                      id='email'
-                      name='email'
-                      placeholder='Tu email'
-                      value={email}
-                      onChange={onChange}
-                    />
-                  </div>
-                  <div className='campo-form'>
-                    <label htmlFor='password'>Password</label>
-                    <input 
-                      type='password'
-                      id='password'
-                      name='password'
-                      placeholder='Tu password'
-                      value={password}
-                      onChange={onChange}
-                    />
-                  </div>
+            <form
+              onSubmit={onSubmit}
+            >
+                <div className='campo-form'>
+                  <label htmlFor='email'>Email</label>
+                  <input 
+                    type='email'
+                    id='email'
+                    name='email'
+                    placeholder='Tu email'
+                    value={email}
+                    onChange={onChange}
+                  />
+                </div>
+                <div className='campo-form'>
+                  <label htmlFor='password'>Password</label>
+                  <input 
+                    type='password'
+                    id='password'
+                    name='password'
+                    placeholder='Tu password'
+                    value={password}
+                    onChange={onChange}
+                  />
+                </div>
 
-                  <div className='campo-form'>
-                      <input type='submit' className='btn btn-primario btn-block'
-                      value='Iniciar Sesión'/>
-                  </div>
-              </form>
+                <div className='campo-form'>
+                    <input type='submit' className='btn btn-primario btn-block'
+                    value='Iniciar Sesión'/>
+                </div>
+            </form>
 
-              <Link to={'/nueva-cuenta'} className='enlace-cuenta'>
-                Obtener Cuenta
-              </Link>
-          </div>
+            <Link to={'/nueva-cuenta'} className='enlace-cuenta'>
+              Obtener Cuenta
+            </Link>
+        </div>
       </div>
     );
 }

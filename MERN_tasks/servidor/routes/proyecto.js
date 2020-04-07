@@ -18,7 +18,7 @@ router.post('/',
 //Obtener todos los proyectos
 router.get('/',
     auth,
-    proyectoController.ObtenerProyecto
+    proyectoController.ObtenerProyectos
 );
 
 //Actualizar proyecto mediante ID

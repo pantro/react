@@ -19,7 +19,7 @@ router.post('/',
 //Obtener todos las tareas
 router.get('/',
     auth,
-    tareaController.ObtenerTarea
+    tareaController.ObtenerTareas
 );
 
 //Actualizar tarea mediante ID

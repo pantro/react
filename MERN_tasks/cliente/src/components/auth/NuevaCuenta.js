@@ -1,12 +1,27 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import alertaContext from '../../context/alertas/alertaContext';
 
-const NuevaCuenta = () => {
+import alertaContext from '../../context/alertas/alertaContext';
+import authContext from "../../context/auth/authContext";
+
+const NuevaCuenta = (props) => {
 
     //Extraer los valores del context
     const alertasContext = useContext(alertaContext);
     const { alerta, MostrarAlerta } = alertasContext;
+
+    const authsContext = useContext(authContext);
+    const { mensaje, autenticado, RegistrarUsuario } = authsContext;
+
+    //En caso de que el usuario se haya autenticado o registrado o sea un registro duplicado
+    useEffect(() => {
+      if (autenticado) {
+        props.history.push('/proyectos');
+      }
+      if (mensaje) {
+        MostrarAlerta(mensaje.msg, mensaje.categoria);
+      }
+    }, [mensaje, autenticado, props.history]);
 
     //State para iniciar sesión
     const [usuario, guardarUsuario] = useState({
@@ -38,11 +53,21 @@ const NuevaCuenta = () => {
       //Password minimo 6 caracteres
       if (password.length < 6) {
         MostrarAlerta('El password debe ser de al menos 6 caracteres', 'alerta-error');
+        return;
       }
 
       //password iguales
-      
+      if (password !== confirmar) {
+        MostrarAlerta('Los password no son iguales', 'alerta-error');
+        return;
+      }
+
       //Pasarlo al action
+      RegistrarUsuario({
+        nombre,
+        email,
+        password
+      });
     }
 
     return (
