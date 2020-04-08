@@ -1,5 +1,4 @@
 import React, {useContext, useState, useEffect} from 'react';
-import uuid from 'uuid';
 
 import proyectoContext from '../../context/proyectos/proyectoContext';
 import tareaContext from '../../context/tareas/tareaContext';
@@ -50,7 +49,7 @@ const FormTarea = () => {
     //Enviar los datos
     const OnSubmitTarea = e => {
         e.preventDefault();
-
+        
         //Validar
         //trim() : elimina espacio vacios al inicio y final
         if (nombre.trim() === '') {
@@ -61,9 +60,7 @@ const FormTarea = () => {
         //Revisar si es editar o agregar
         if ( seleccionarTarea === null ) {
             //agregar la nueva tarea al State
-            tarea.proyectoId = proyectoActual.id;
-            tarea.estado = false;
-            tarea.id = uuid.v4();
+            tarea.proyecto = proyectoActual._id;
             AgregarTarea(tarea);    
         } else {
             ActualizarTarea(tarea);
@@ -71,12 +68,11 @@ const FormTarea = () => {
         }
         
         //Obtener las tareas nuevamente
-        ObtenerTareas(proyectoActual.id);
+        ObtenerTareas(proyectoActual._id);
 
         //Reiniciar el form
         guardarTarea({
             nombre: ''
-            
         });
     }
 

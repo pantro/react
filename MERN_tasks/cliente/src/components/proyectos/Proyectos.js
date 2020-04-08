@@ -13,6 +13,8 @@ const Proyectos = () => {
 
     useEffect(() => {
       UsuarioAutenticado();
+      //Para evitar que mande error por que sabemos que esta bien
+      // eslint-disable-next-line
     }, []);
 
     return (

@@ -6,14 +6,14 @@ const Tarea = ({tarea}) => {
 
     //Obtener funcion
     const tareasContext = useContext(tareaContext);
-    const { EliminarTarea, ObtenerTareas, EstadoTarea, EditarTarea } = tareasContext;
+    const { EliminarTarea, ObtenerTareas, ActualizarTarea, EditarTarea } = tareasContext;
 
     //Eliminar tarea
     const HandleEliminar = () => {
-        EliminarTarea(tarea.id);
+        EliminarTarea(tarea._id, tarea.proyecto);
 
         //Obtener nuevamente las tareas del proyecto
-        ObtenerTareas(tarea.proyectoId);
+        ObtenerTareas(tarea.proyecto);
     }
 
     //Cambiar el estado de una tarea
@@ -23,7 +23,7 @@ const Tarea = ({tarea}) => {
             tarea.estado = false;
         else
             tarea.estado = true;
-        EstadoTarea(tarea);
+        ActualizarTarea(tarea);
     }
 
     return (

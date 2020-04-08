@@ -40,7 +40,8 @@ exports.CrearTarea = async (req, res) => {
 exports.ObtenerTareas = async (req,res) => {
     try {
         //Extraer el proyecto y comprobar si existe
-        const { proyecto } = req.body;
+        //Se pone req.query cuando se envia params
+        const { proyecto } = req.query;
 
         const existeProyecto = await Proyecto.findById(proyecto);
         if (!existeProyecto) {
@@ -53,7 +54,7 @@ exports.ObtenerTareas = async (req,res) => {
         }
 
         //Obtener tareas por proyecto
-        const tareas = await Tarea.find({ proyecto });
+        const tareas = await Tarea.find({ proyecto }).sort({ creado: -1});
         res.json( tareas );
 
     } catch (error) {
@@ -85,13 +86,8 @@ exports.ActualizarTarea = async(req, res) => {
 
         //Crear un objeto con la nueva informacion
         const nuevaTarea = {};
-
-        if (nombre) {
-            nuevaTarea.nombre = nombre;
-        }
-        if (estado) {
-            nuevaTarea.estado = estado;
-        }
+        nuevaTarea.nombre = nombre;
+        nuevaTarea.estado = estado;
 
         //Guardar la tarea
         const tarea = await Tarea.findOneAndUpdate({_id: req.params.id}, nuevaTarea, { new : true });
@@ -106,11 +102,10 @@ exports.ActualizarTarea = async(req, res) => {
 //Eliminar un tarea por ID
 exports.EliminarTarea = async(req, res) => {
 
-    
     try {
         //Extraer el proyecto y comprobar si existe
-        const { proyecto } = req.body;
-
+        const  { proyectoId } = req.query;
+        
         //Si la tarea existe o no
         const existeTarea = await Tarea.findById(req.params.id);
         if (!existeTarea) {
@@ -118,7 +113,7 @@ exports.EliminarTarea = async(req, res) => {
         }
 
         //Extraer proyecto
-        const existeProyecto = await Proyecto.findById(proyecto);
+        const existeProyecto = await Proyecto.findById(proyectoId);
         
         //Revisar si el proyecto actual pertenece al usuario autenticado
         if (existeProyecto.creador.toString() !== req.usuario.id) {

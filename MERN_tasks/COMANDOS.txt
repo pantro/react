@@ -16,6 +16,12 @@ SERVIDOR
 - npm i express-validator
 - npm i jsonwebtoken
 
+NOTA:
+- Se pueden eliminar las dependencias de desarrollo eliminandolas a mano o con el siguiente codigo:
+    * npm uninstall --save uuid
+- Para mantener actualizadas tus dependencias
+    * npm audit fix
+
 ORDEN PARA UTILIZAR HOOK
 - types -> state -> reducer -> Donde de utiliza
 ORDEN PARA RUTAS
