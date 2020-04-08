@@ -9,7 +9,8 @@ import {
     AGREGAR_PROYECTO,
     VALIDAR_FORMULARIO,
     PROYECTO_ACTUAL,
-    ELIMINAR_PROYECTO
+    ELIMINAR_PROYECTO,
+    PROYECTO_ERROR
 } from '../../types';
 
 const ProyectoState = props => {
@@ -18,7 +19,8 @@ const ProyectoState = props => {
         proyectos : [],
         formulario : false,
         errorFormulario: false,
-        proyecto: null
+        proyecto: null,
+        mensaje: null
     }
 
     //Dispatch para ejecutar las acciones
@@ -44,7 +46,16 @@ const ProyectoState = props => {
             });
             
         } catch (error) {
-            console.log(error);
+            //console.log(error);
+            const alerta = {
+                msg: 'Hubo un error',
+                categoria: 'alerta-error'
+            }
+
+            dispatch({
+                type: PROYECTO_ERROR,
+                payload: alerta
+            });
         }
     }
 
@@ -81,11 +92,28 @@ const ProyectoState = props => {
     }
 
     //Eliminar proyecto
-    const EliminarProyecto = proyectoId => {
-        dispatch({
-            type: ELIMINAR_PROYECTO,
-            payload: proyectoId
-        });
+    const EliminarProyecto = async proyectoId => {
+
+        try {
+            await ClienteAxios.delete(`/api/proyecto/${proyectoId}`);
+
+            dispatch({
+                type: ELIMINAR_PROYECTO,
+                payload: proyectoId
+            });
+
+        } catch (error) {
+            //console.log(error);
+            const alerta = {
+                msg: 'Hubo un error',
+                categoria: 'alerta-error'
+            }
+
+            dispatch({
+                type: PROYECTO_ERROR,
+                payload: alerta
+            });
+        }
     }
 
     return(
@@ -95,6 +123,7 @@ const ProyectoState = props => {
                 formulario: state.formulario,
                 errorFormulario: state.errorFormulario,
                 proyecto: state.proyecto,
+                mensaje: state.mensaje,
                 MostrarFormulario,
                 ObtenerProyectos,
                 AgregarProyecto,

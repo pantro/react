@@ -22,3 +22,5 @@ ORDEN PARA RUTAS
 - index.js -> auth.js -> authController.js
 ORDEN PARA BASE DE DATOS
 - modelo -> controller -> routes
+ORDEN PARA MENSAJE
+- types -> state -> reducer 
