@@ -15,6 +15,7 @@ SERVIDOR
 - npm i bcryptjs
 - npm i express-validator
 - npm i jsonwebtoken
+- npm i dotenv
 
 NOTA:
 - Se pueden eliminar las dependencias de desarrollo eliminandolas a mano o con el siguiente codigo:

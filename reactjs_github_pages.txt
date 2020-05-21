@@ -1,5 +1,6 @@
 SUBIR APP REACTJS A GITHUB PAGE
 -------------------------------
+npm install gh-pages --save-dev
 NOTA: No tiene que haber carpeta adicional dentro de la raiz principal
 - En "package.json"
     * "homepage": "https://myusername.github.io/my-app",
